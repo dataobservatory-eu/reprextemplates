@@ -1,4 +1,4 @@
-#' @titel Return a color for each European country from the SR palette.
+#' @title Return a color for each European country from the SR palette.
 #'
 #' @param europe_countries_4 If TRUE, returns values for 'GB-G', 'GB-N', 'DE-W', 'DE-E'.
 #' @keywords palette
