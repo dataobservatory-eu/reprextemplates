@@ -43,6 +43,32 @@ add_greys( pal = reprex_palette(), c(40,60,80))
 #>  "#CCCCCC"
 ```
 
+``` r
+library(dplyr)
+library(ggplot2)
+library(reprextemplates)
+
+data.frame (
+  Color = names(reprex_palette()), 
+  HEX = as.character(reprex_palette()),
+  values = rep(1,12)
+ ) %>%
+  ggplot( aes (x = Color, 
+               y = values, 
+               fill = Color)) +
+  geom_col() +
+  scale_fill_manual( values = reprex_palette()) +
+  theme_minimal() +
+  labs ( y = NULL, x = NULL, title = "Reprex & Observatory Color Palette") +
+  theme(axis.text.x=element_blank(),
+      axis.ticks.x=element_blank(),
+      axis.text.y=element_blank(),
+      axis.ticks.y=element_blank(), 
+      panel.grid.major = element_blank())
+```
+
+<img src="man/figures/README-templateexample-1.png" width="100%" />
+
 ## Code of Conduct
 
 Please note that the reprextemplates project is released with a
