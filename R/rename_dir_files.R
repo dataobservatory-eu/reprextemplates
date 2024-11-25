@@ -8,19 +8,25 @@
 #filenames <- paste0("Slide", 1:12, ".PNG")
 #path_to_files <- file.path("data-raw", "20241121_D_Antal_IAMIC_lowres")
 #common_name <- "Slides_D_Antal_IAMIC_20241121"
-
+#new_path = "data-raw/iamic"
 
 rename_dir_files <- function(path_to_files, new_path, common_name) {
-  filenames <- dir(path_to_files)
+  filenames       <- dir(path_to_files)
   file_extensions <- tolower(vapply(strsplit(filenames, "\\."), function(x) x[2], character(1)))
-  file_numbers <- as.numeric(unlist(regmatches(filenames, gregexpr("[[:digit:]]+", filenames))))
-  file_numbers <- ifelse(file_numbers<10, paste0("0", file_numbers), as.character(file_numbers))
-  new_file_names <- paste0(file_numbers, "_", common_name, ".", file_extensions)
-  file.copy()
+  file_numbers    <- as.numeric(unlist(regmatches(filenames, gregexpr("[[:digit:]]+", filenames))))
+  file_numbers    <- ifelse(file_numbers<10, paste0("0", file_numbers), as.character(file_numbers))
+  new_file_names  <- paste0(file_numbers, "_", common_name, ".", file_extensions)
+  file_copying    <- sapply(1:length(filenames),
+                            function(x) file.copy(file.path(path_to_files, filenames[x]),
+                                                  file.path(new_path, new_file_names[x]), overwrite=TRUE)
+  )
 
-  sapply(1:length(filenames), function(x) file.copy(file.path(path_to_files, filenames[x]),
-                                           file.path(new_path, new_file_names[x]), overwrite=TRUE))
 
+  if(! all(file_copying) ) {
+    warning("Problem files:\n", file.path(new_path, new_file_names)[!file_copying])
+  } else {
+    message("Copied to ", file.path(new_path))
+  }
 }
 
 
