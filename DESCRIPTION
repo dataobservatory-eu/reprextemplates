@@ -1,8 +1,10 @@
 Package: reprextemplates
 Title: Reprex Media Asset Templates
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: 
-    person("Daniel", "Antal", , "daniel.antal@dataobservatory.eu", role = c("aut", "cre"),
+    person("Daniel", "Antal", 
+           email = "daniel.antal@dataobservatory.eu", 
+           role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7513-6760"))
 Description: Create reproducible media assets for Reprex BV and its collaboration partners.
 License: GPL (>= 3)
