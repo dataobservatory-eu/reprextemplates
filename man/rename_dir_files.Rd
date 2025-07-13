@@ -16,3 +16,24 @@ rename_dir_files(path_to_files, new_path, common_name)
 \description{
 Rename and copy image files from one directory to another
 }
+\examples{
+# Create temporary input and output directories
+input_dir <- file.path(tempdir(), "rename_example_in")
+output_dir <- file.path(tempdir(), "rename_example_out")
+dir.create(input_dir, showWarnings = FALSE)
+dir.create(output_dir, showWarnings = FALSE)
+
+# Create dummy image files with numbers in names
+file.create(file.path(input_dir, "img1.png"))
+file.create(file.path(input_dir, "photo02.jpg"))
+file.create(file.path(input_dir, "image3.PNG"))  # Will be ignored (case sensitive)
+file.create(file.path(input_dir, "note.txt"))    # Will be ignored
+
+# Run the function
+rename_dir_files(path_to_files = input_dir,
+                 new_path = output_dir,
+                 common_name = "renamed")
+
+# See the renamed files
+list.files(output_dir)
+}
