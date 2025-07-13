@@ -2,20 +2,17 @@
 % Please edit documentation in R/rename_dir_files.R
 \name{rename_dir_files}
 \alias{rename_dir_files}
-\title{Rename files in directory}
+\title{Rename and copy image files from one directory to another}
 \usage{
 rename_dir_files(path_to_files, new_path, common_name)
 }
 \arguments{
-\item{path_to_files}{Path to the files to rename}
+\item{path_to_files}{Source directory containing image files}
 
-\item{new_path}{New path}
+\item{new_path}{Destination directory}
 
-\item{common_name}{Common file name part as a string.}
-}
-\value{
-The renamed files in \code{new_path}
+\item{common_name}{Base name for the renamed files}
 }
 \description{
-Rename files in directory
+Rename and copy image files from one directory to another
 }
