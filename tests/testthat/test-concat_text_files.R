@@ -1,16 +1,19 @@
 test_that("concat_text_files combines multiple files correctly", {
-  tmp <- tempdir()
+  tmp_root <- tempdir()
+  tmp <- file.path(tmp_root, "concat_test")
+  dir.create(tmp, showWarnings = FALSE)
 
   # Create some sample text files
-  f1 <- file.path(tmp, "a1.txt")
-  f2 <- file.path(tmp, "a2.txt")
-  f3 <- file.path(tmp, "a3.txt")
+  file_1 <- file.path(tmp, "a1.txt")
+  file_2 <- file.path(tmp, "a2.txt")
+  file_3 <- file.path(tmp, "a3.txt")
 
-  writeLines(c("alpha", "beta"), f1)
-  writeLines(c("gamma", "delta"), f2)
-  writeLines(c("epsilon"), f3)
+  writeLines(c("alpha", "beta"), file_1)
+  writeLines(c("gamma", "delta"), file_2)
+  writeLines(c("epsilon"), file_3)
 
   out <- file.path(tmp, "combined.txt")
+  if (file.exists(out)) file.remove(out)
 
   result <- concat_text_files(tmp, extension = "txt", output_file = out)
 
@@ -20,6 +23,7 @@ test_that("concat_text_files combines multiple files correctly", {
   lines <- readLines(out)
   expect_equal(lines, c("alpha", "beta", "gamma", "delta", "epsilon"))
 })
+
 
 test_that("concat_text_files errors if no matching files", {
   tmp <- tempdir()

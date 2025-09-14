@@ -24,6 +24,9 @@ concat_text_files <- function(source_dir, extension = "txt", output_file = "comb
   pattern <- paste0("\\.", extension, "$")
   files <- list.files(source_dir, pattern = pattern, full.names = TRUE)
 
+  # Exclude the target output file if it already exists in the same folder
+  files <- setdiff(files, normalizePath(output_file, mustWork = FALSE))
+
   if (length(files) == 0) {
     stop("No files found with extension: ", extension)
   }
