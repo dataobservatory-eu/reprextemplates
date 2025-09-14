@@ -1,7 +1,7 @@
 library(testthat)
 
 test_that("rename_dir_files works correctly with image files", {
-  temp_in  <- file.path(tempdir(), "input_test")
+  temp_in <- file.path(tempdir(), "input_test")
   temp_out <- file.path(tempdir(), "output_test")
   dir.create(temp_in, showWarnings = FALSE)
   dir.create(temp_out, showWarnings = FALSE)
@@ -23,9 +23,9 @@ test_that("rename_dir_files works correctly with image files", {
   # Check expected output
   expect_true(any(grepl("^0*1_renamed\\.png$", output_files)))
   expect_true(any(grepl("^0*2_renamed\\.jpg$", output_files)))
-  expect_true(any(grepl("^0*3_renamed\\.png$", output_files)))  # test3.PNG is .png
+  expect_true(any(grepl("^0*3_renamed\\.png$", output_files))) # test3.PNG is .png
 
-  expect_false(any(grepl("\\.txt$", output_files)))  # skip.txt shouldn't be copied
+  expect_false(any(grepl("\\.txt$", output_files))) # skip.txt shouldn't be copied
 })
 
 test_that("rename_dir_files throws error for missing directories", {
@@ -57,9 +57,9 @@ test_that("rename_dir_files stops if no image files are present", {
 })
 
 test_that("rename_dir_files warns on failed copy", {
-  skip_on_os("windows")  # Permission manipulation is tricky on Windows
+  skip_on_os("windows") # Permission manipulation is tricky on Windows
 
-  temp_in  <- file.path(tempdir(), "input_warn")
+  temp_in <- file.path(tempdir(), "input_warn")
   temp_out <- file.path(tempdir(), "output_warn")
   dir.create(temp_in, showWarnings = FALSE)
   dir.create(temp_out, showWarnings = FALSE)
@@ -71,12 +71,12 @@ test_that("rename_dir_files warns on failed copy", {
   # Pre-create target file with no write permission
   dest_file <- file.path(temp_out, "1_renamed.jpg")
   file.create(dest_file)
-  Sys.chmod(dest_file, "0444")  # Make it read-only (UNIX)
+  Sys.chmod(dest_file, "0444") # Make it read-only (UNIX)
 
   expect_warning(
     rename_dir_files(path_to_files = temp_in, new_path = temp_out, common_name = "renamed"),
     regexp = "Problem files"
   )
 
-  Sys.chmod(dest_file, "0644")  # Reset permissions for cleanup
+  Sys.chmod(dest_file, "0644") # Reset permissions for cleanup
 })
