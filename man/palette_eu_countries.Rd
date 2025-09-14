@@ -2,16 +2,36 @@
 % Please edit documentation in R/palette_eu_countries.R
 \name{palette_eu_countries}
 \alias{palette_eu_countries}
-\title{Return a color for each EU country from the SR palette.}
+\title{EU country color palette}
 \usage{
 palette_eu_countries()
 }
 \value{
-A named vector of color hex strings for each country code.
+A named character vector of color hex strings, one per country/group.
 }
 \description{
-Return a color for each EU country from the SR palette.
+Provides a reproducible set of hex color codes for EU member states
+and some EU aggregates (e.g. \code{EU27_2020}, \code{EU28}, \code{EU15}).
+}
+\details{
+Colors are derived from the SR palette with some countries mapped to
+specific hues (e.g. Poland = red, Netherlands = orange).
+
+The function returns a named character vector of hex color codes.
+Names correspond to two-letter ISO country codes (or specific
+groupings such as \code{"EU27_2020"}, \code{"EU15"}).
 }
 \examples{
-palette_eu_countries()
+# Get the palette
+cols <- palette_eu_countries()
+
+# Look up Poland's color
+cols["PL"]
+
+# Plot example
+barplot(rep(1, length(cols)), col = cols, names.arg = names(cols), las = 2)
+
+}
+\seealso{
+\code{\link[grDevices:colors]{grDevices::colors()}}, \code{\link[grDevices:rgb]{grDevices::rgb()}}
 }

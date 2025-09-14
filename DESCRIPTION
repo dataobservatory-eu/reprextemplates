@@ -1,6 +1,6 @@
 Package: reprextemplates
 Title: Reprex Media Asset Templates
-Version: 0.1.1
+Version: 0.1.12
 Authors@R: 
     person("Daniel", "Antal", 
            email = "daniel.antal@dataobservatory.eu", 
@@ -14,6 +14,7 @@ RoxygenNote: 7.3.2
 Imports: 
     assertthat,
     grDevices,
+    stringr,
     tibble
 Suggests: 
     covr,

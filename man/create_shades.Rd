@@ -20,5 +20,5 @@ This is a wrapper around
 set to \code{color1=color} and \code{color2='white'}.
 }
 \examples{
-create_shades( color = c(violet = "#4E115A"))
+create_shades(color = c(violet = "#4E115A"))
 }

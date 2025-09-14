@@ -2,23 +2,36 @@
 % Please edit documentation in R/add_greys.R
 \name{add_greys}
 \alias{add_greys}
-\title{Add greys}
+\title{Add grey shades to a palette}
 \usage{
 add_greys(pal = NULL, grey_levels)
 }
 \arguments{
-\item{pal}{A palette, defaults to \code{NULL}.}
+\item{pal}{Optional. A character vector of color hex codes (an existing palette).
+If \code{NULL} (default), the function returns only the grey shades.}
 
-\item{grey_levels}{A vector of grey levels between 0-100.}
+\item{grey_levels}{A numeric vector of grey levels between 0 and 100,
+where \code{0} is black and \code{100} is white.}
+}
+\value{
+A named character vector of colors. Names of the added greys are
+\code{"greyXX"} where \code{XX} is the grey level.
 }
 \description{
-Add shades of grey to a palette
+Extends an existing color palette with shades of grey, or creates a
+standalone greyscale palette if no palette is supplied.
 }
 \examples{
-add_greys (grey_levels = c(50,70))
-add_greys ( reprex_palette(), grey_levels = c(50,70))
+# Only grey shades
+add_greys(grey_levels = c(50, 70))
+
+# Extend an existing palette
+add_greys(c("red", "blue"), grey_levels = c(20, 80))
+
 }
 \seealso{
+\code{\link[grDevices:gray]{grDevices::grey()}}
+
 Other color functions: 
 \code{\link{reprex_palette}()}
 }

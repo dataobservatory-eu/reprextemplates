@@ -13,6 +13,6 @@ palette_europe_countries(europe_countries_4 = FALSE)
 Return a color for each European country from the SR palette.
 }
 \examples{
-palette_europe_countries <- palette_europe_countries( europe_countries_4 = TRUE)
+palette_europe_countries <- palette_europe_countries(europe_countries_4 = TRUE)
 }
 \keyword{palette}
