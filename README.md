@@ -42,7 +42,9 @@ add_greys(pal = reprex_palette(), c(40, 60, 80))
 
 ``` r
 library(dplyr)
+#> Warning: package 'dplyr' was built under R version 4.5.1
 library(ggplot2)
+#> Warning: package 'ggplot2' was built under R version 4.5.1
 library(reprextemplates)
 
 data.frame(
