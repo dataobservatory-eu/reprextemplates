@@ -19,6 +19,8 @@ test_that("add_greys extends an existing palette", {
 })
 
 test_that("add_greys errors on invalid input", {
-  expect_error(add_greys(pal = 123, grey_levels = 50),
-               "must be a character vector")
+  expect_error(
+    add_greys(pal = 123, grey_levels = 50),
+    "must be a character vector"
+  )
 })
