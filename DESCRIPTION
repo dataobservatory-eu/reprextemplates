@@ -1,6 +1,6 @@
 Package: reprextemplates
 Title: Reprex Media Asset Templates
-Version: 0.1.12
+Version: 0.1.13
 Authors@R: 
     person("Daniel", "Antal", 
            email = "daniel.antal@dataobservatory.eu", 
