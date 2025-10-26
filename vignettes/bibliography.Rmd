@@ -1,0 +1,271 @@
+---
+title: "Bibliography Management Workflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{bibliography}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+This vignette explains how a scientific or software development projects bibliography is built and verified. Its purpose is not to produce a formatted reference list, but to maintain a transparent, auditable chain of provenance for every citation that appears in our Quarto manuscripts (`hdto_03.qmd`, `First_FinFAIR_Draft_03.qmd`, and others).
+
+```{r setup}
+library(reprextemplates)
+```
+
+
+Every `.bib` file included in the project's `bib` folder originates from a verified, human-curated source—for example, `antal.bib`, `wikidata.bib`. The goal is to merge these files into a single combined bibliography file, for example, into the  `finno-ugric-bibliography.bib`, which contains one additional line before each record:
+
+```         
+# in the YAML header
+bibliography:
+  - bib/antal.bib
+  - bib/artefacts.bib
+  - bib/automation.bib
+  - bib/datagovernance.bib
+```
+
+### Purpose
+
+The workflow described here guarantees that:
+
+- No hallucinated or spurious references can enter our citation pool.
+- If a citation key is missing a `@Comment{ source: ... }`, we know immediately that it was not part of the verified bibliography.
+- Any citation can be traced to the original `.bib` file.
+This enables fine-grained debugging: we can check whether an entry originated from `antal.bib`, `hyvonen.bib` (if such a file exists$), or any other sub-file.
+- All manuscripts remain consistent.
+
+Quarto, R Markdown, and Pandoc will all use the same unmerged, source .bib files, eliminating mismatched citations between the HDTO methodology paper, the FinFAIR proposal, and any other project documents, and retaining interoperability of the .bib files.
+
+## Purpose of `concat_text_files()`
+
+The R code in this vignette performs four simple actions:
+
+**List the source files**\
+It searches a directory (usually references/bib_sources/) for all files matching a given extension, such as .bib.
+
+**Read each file and trim it**\
+Each file is read line-by-line, removing trailing whitespace but otherwise keeping the text unchanged.
+
+**Optionally add a provenance comment**\
+Before the contents of each file are written to the merged output, the script can insert a line like
+`@Comment{ source: antal.bib }`
+to record which file the following entries came from.
+
+**Write the combined bibliography*\
+The final `.bib` file is written in the correct order.
+A message reports how many files were combined and where the result was saved.
+
+The following utility concatenates the bibliographic references sequentially. It is now a generic, provenance-aware file concatenator that can also work with software source files, multiple `.md` or `.qmd` files of the same markdown project.
+
+-   Collects all `.bib` (or `.R` source or other) files in a directory.
+-   Appends them in deterministic order (as list.files() returns).
+-   Optionally inserts a provenance line in the form of a BibLaTeX-safe or source-file safe comment, e.g.:
+
+```         
+@Comment{ source: antal.bib }
+
+# or 
+
+# source: my_function.R 
+```
+
+so each block in the merged file can always be traced back to its origin.
+
+The following code block creates a Finno-Ugric Studies and data curation bibliography from all project files in the `bib` subfolder of the Finno-Ugric project repository of RStudio/Quarto or other markdown editor.
+
+```{r concat, eval=FALSE}
+concat_text_files(source_dir = "bib", 
+                  extension = "bib", 
+                  output_file = "finno-ugric-bibliograpy.bib", 
+                  add_source_comment = TRUE,
+                  comment_start = "@Comment{",
+                  comment_end   = "}")
+```
+
+```         
+@Comment{ source: antal.bib }
+@proceedings{antal_hungarnet_2024,
+  title        = {A szlovák adatkicserélési tér magyarországi
+                   föderációjának lehetőségei},
+  year         = 2024,
+  author       = {Antal, Daniel},
+  publisher    = {HUNGARNET Egyesület},
+  month        = dec,
+  doi          = {10.31915/NWS.2024.25},
+  url          = {https://doi.org/10.31915/NWS.2024.25},
+}
+
+@misc{antal_market_comparator,
+  author       = {Antal, Daniel},
+  title        = {{A Market Comparator Model for Valuing the Use of
+                   Music}},
+  month        = jun,
+  year         = 2023,
+  publisher    = {Zenodo},
+  version      = {0.1.0},
+  doi          = {10.5281/zenodo.8046977},
+  url          = {https://doi.org/10.5281/zenodo.8046977}
+}
+
+# Then later: 
+
+@Comment{ source: datagovernance.bib }
+@book{data_feminism_2020,
+    location = {Cambridge, {MA}, {USA}},
+    title = {Data Feminism},
+    isbn = {978-0-262-04400-4},
+    url = {https://data-feminism.mitpress.mit.edu/},
+    series = {Strong Ideas},
+    abstract = {A new way of thinking about data science and data ethics that is informed by the ideas of intersectional feminism.},
+    pagetotal = {328},
+    publisher = {{MIT} Press},
+    author = {D'Ignazio, Catherine and Klein, Lauren F.},
+    editorb = {Weinberger, David},
+    editorbtype = {redactor},
+    urldate = {2022-07-01},
+    date = {2020-03-10},
+    year = 2020,
+    langid = {english}
+}
+
+@legislation{directive_eu_2019_1024,
+  author = {{EUR-Lex Legal Acts}},
+    title = {Directive ({EU}) 2019/1024 of the European Parliament and of the Council of 20 June 2019 on open data and the re-use of public sector information},
+    volume = {{OJ} L},
+    issn = {1977-0677},
+    url = {http://data.europa.eu/eli/dir/2019/1024/oj},
+    pages = {56--83},
+    number = {172},
+    journaltitle = {Official Journal of the European Union},
+    shortjournal = {{OJ} L},
+    urldate = {2022-01-10},
+    date = {2019-06-26},
+    note = {{CELEX}:32019L1024},
+    keywords = {2019, {EU}-law, open data, {PSI}}
+}
+```
+
+We want to move citations in Quarto without inventing new citations and not using citations that are not trustworthy. Imagine that we have two files, for example, the `scientific_preprint.qmd` as a source file that contains text with the citation syntax below: it reads in Biblatex citations with citation keys and adds it inline to the markdown source text. We want to copy these citations to the `new_text.qmd` target file without inventing new, non-existing citations, and with care that no citations are invented or cannot be easily checked by a human author or editor.
+
+## Citation syntax
+
+Quarto uses Pandoc markdown citation syntax:
+
+-   Parenthetical: `[see @antal_2025, p. 34; also @wickham2015, chap. 1]`
+
+-   Narrative: `@antal_2025 argues that...`
+
+-   Suppressed author: `[-@antal_2025]`
+
+-   Because we work in fenced markdown, unless in reasoning and chat, do not escape the [] signes, i.e, do not change `[@antal_2025]` to $$@antal_2025$$, also do not escape the `@` [at] sign. In this document, I used `backticks` so that RStudio and Quarto do not use either `\` escape character and does not try to make the citation.
+
+Uncited but included in bibliography:
+
+``` yaml
+nocite: |
+  @antal_2025, @wickham2015
+```
+
+Ensure each cited source has a unique citation key (e.g., @antal_2025) defined in your .bib file.
+
+## Reuse of hand-checked, edited citations
+
+### Definitions and not ambigous references
+
+```         
+# markdown snippet
+
+We also draw conceptual support from the *European Interoperability Framework* (EIF), which we detail further in section 3.1. It is originally designed to support cross-border public services within the EU—"to provide better, more user‑focused public services to citizens" [@eif_implementation_strategy_2017], and it is one of the underlying interoperability framework of the *European Open Science Cloud* (EOSC) and therefore also the *Digital Research Infrastructure for the Arts and Humanities* (DARIAH-EU.)
+```
+
+It is clear from this source text that `[@eif_implementation_strategy_2017]` refers to *European Interoperability Framework* (EIF) definition. In this case, the `[@eif_implementation_strategy_2017]` can be copied from the source .qmd file to the target .qmd file without ambigouity.
+
+Similarly
+
+```         
+One complication is the illusion of standardization in CIDOC CRM. Though presented as a formal ontology for cultural heritage, it functions more as a flexible modelling dialect. At version 7.2, CIDOC CRM has its own evolving history [@cidoc_2024].
+```
+
+The same citation-key, i.e., `[@cidoc_2024]` can be safely used in the same projec that has access to the same .bib files when CIDOC CRM needs to be defined. The bibliographic citations is referencing a reference or standard document that is very easy to identify.
+
+### Direct quotation and close indirect quotations
+
+```         
+As the *Feasibility Study for a European Music Observatory* underlined, *“the fragmented, scarce and poorly harmonised nature of the data collection landscape in the field of music has led to calls … for a European Music Observatory”* [@emo_feasibility_2020, p9].
+```
+
+When the same direct or closely resembling indirect quotation is reused in the target .qmd then `[@emo_feasibility_2020, p9]` can be safely copied from the source qmd file to the target qmd file.
+
+### Guesswork
+
+The following references may be probably easily guessed, but require human control when copied:
+
+```         
+This value-chain framing originates in Hull’s *The Music Business and Recording Industry* [@hull_music_2011] and Leurdijk et al.’s *Statistical, Ecosystem and Competitiveness Analysis of the Media and Content Industries* [@leurdijk_statistical_2012], and was adapted in subsequent CEEMID reports [@antal_slovenskom_hudobnom_2019_en, @antal_ceereport_2020].
+```
+
+The `@antal_slovenskom_hudobnom_2019_en` is the Slovak Music Industry Report, and it may be contained in the same .bib file as `[@hull_music_2011]` and their respective contexts, titles, keywords may suggest that their re-use in the context of making standardised music industry studies is safe.
+
+Often, the name of the author, or the name of a methodology, like the *8-star linked open data* model that it may be matched with the `[@hyvonen_tuominen_8star_2024]` reference:
+
+```         
+@inproceedings{hyvonen_tuominen_8star_2024,
+  author       = {Eero Hyvönen and Jouni Tuominen},
+  title        = {8-star Linked Open Data Model: Extending the 5-star Model for Better Reuse, Quality, and Trust of Data},
+  booktitle    = {Posters, Demos, Workshops, and Tutorials of the 20th International Conference on Semantic Systems (SEMANTiCS 2024)},
+  editor       = {Daniel Garijo and Alessandra Lo Gentile and Ana Kurteva and Andrea Mannocci and Francesco Osborne and Sahar Vahdati},
+  series       = {CEUR Workshop Proceedings},
+  volume       = {3759},
+  publisher    = {CEUR-WS.org},
+  address      = {Aachen},
+  year         = {2024},
+  eventtitle   = {{International Conference on Semantic Systems}},
+  eventdate    = {2024-09-17},
+  venue        = {Amsterdam, Netherlands},
+  url          = {http://hdl.handle.net/10138/586661}
+}
+```
+
+For example, texts referring to the 8-star FAIR model, the 8-star linked open data model, or the 8-star FAIR model of Hyvönen and colleagues are in the bibliographical and project context may be easy to resolve to `[@hyvonen_tuominen_8star_2024]`
+
+### Bibliographic Citation Rules
+
+-   Always use citations keys exactly as they are provided in the concatenated bib file, for example, like `[@hyvonen_tuominen_8star_2024]`
+
+-   Identify the source .bib file, for example, from `@Comment{ source: datagovernance.bib }` the `[@data_feminism_2020]`. Warn if this `bib/datagovernance.bib` is not invoked in the source or target qmd header.
+
+-   Do not use any citations where the `bib` provenance is not clear. The `bib` files are hand-curated.
+
+-   Warn if the same citation may be present in several `bib` files, for example, if the concatenated bib file has several `[@data_feminism_2020]` references, or if the same author-title combination is present with several citation keys.
+
+-   Before enriching the target .qmd text, provide a tabular review opportunity to correct citation management. Mark as unambigous definitions, laws, standards, and other very clear citations. In case of ambigouity, provide context, for example, the sentences preceeding, containing and following a citation in the source and target texts.
+
+```         
+# markdown snippet: source document
+In practice, findability, interoperability, and reuse are not easily achieved across national metadata practices, multilingual vocabularies, or heritage-specific contexts. For this reason, we adopted the extended **8-star model** of linked cultural data proposed by Hyvönen and Tuominen [@hyvonen_tuominen_8star_2024], which adds essential dimensions such as provenance, multilingualism, contextualization, participation, and sustainability. This higher standard better reflects the realities of cross-border, community-anchored heritage work and informed every layer of our infrastructure—from ontology design and multilingual label support to governance and long-term maintenance strategies.
+
+# markdown snippet: target document
+
+The 5-star FAIR model usually fails to result in truly interoperable datasets, let alone data-driven applications. This is why we aim to use the extended *8-star FAIR model*. This novel suggestion by Hyvönen and Tuominen includes three further quality control checks to ensure that the 5-star FAIR data is truly reusable and make sense.
+
+# In this case, the resembling paraphrazed model name, the mention of hte authors and the similar three sentences can be reasoned to be tracable back to [@hyvonen_tuominen_8star_2024]
+```
+
+## Conclusion
+
+| Step | What happens | Why it matters |
+|----|----|----|
+| 1 | Individual `.bib` files maintained by topic or author | Keeps manual editing minimal and organised |
+| 2 | `concat_text_files()` merges them with provenance comments | Traceability — you always know which `.bib` produced each entry |
+| 3 | Quarto or R Markdown uses the combined `.bib` | Guarantees reproducible, verifiable references |
+| 4 | Any missing or malformed citation can be traced | `grep '@Comment{ source:'` tells you the origin instantly |
