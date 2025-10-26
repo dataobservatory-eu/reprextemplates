@@ -2,9 +2,17 @@
 % Please edit documentation in R/concat_text_files.R
 \name{concat_text_files}
 \alias{concat_text_files}
-\title{Concatenate text files into a single file}
+\title{Concatenate text files into a single file (with optional source comments)}
 \usage{
-concat_text_files(source_dir, extension = "txt", output_file = "combined.txt")
+concat_text_files(
+  source_dir,
+  extension = "txt",
+  output_file = "combined.txt",
+  add_source_comment = FALSE,
+  comment_start = "<!---",
+  comment_end = "--->",
+  source_comment = "filename"
+)
 }
 \arguments{
 \item{source_dir}{A character string giving the directory containing the files.}
@@ -12,19 +20,33 @@ concat_text_files(source_dir, extension = "txt", output_file = "combined.txt")
 \item{extension}{File extension (without leading dot) to match, e.g. \code{"txt"}.}
 
 \item{output_file}{Path to the output file where the concatenated text will be written.}
+
+\item{add_source_comment}{Logical; if \code{TRUE}, insert comment lines indicating
+the source file between each block.}
+
+\item{comment_start, comment_end}{Character strings marking the start and end
+of comment blocks (default HTML-style \code{"<!---"} / \code{"--->"}).}
+
+\item{source_comment}{Type of information to include in the comment; currently
+\code{"filename"} (default). Future options could include \code{"path"} or \code{"basename"}.}
 }
 \value{
 (Invisibly) the path to the combined output file.
 }
 \description{
 Combine all files of a given extension (e.g. \code{txt}, \code{md}, \code{bib}) from a source
-directory into one output file. The function preserves the order returned by
-\code{\link[base:list.files]{base::list.files()}} and trims trailing whitespace on each line.
+directory into one output file. Optionally inserts comment blocks identifying
+the source file for traceability.
 }
 \examples{
 \dontrun{
-# Combine all .bib files into one
-concat_text_files("bib", extension = "bib", output_file = "references_all.bib")
+# Combine all .bib files into one, marking each file origin
+concat_text_files(
+  source_dir = "bib",
+  extension = "bib",
+  output_file = "references_all.bib",
+  add_source_comment = TRUE
+)
 }
 
 }
