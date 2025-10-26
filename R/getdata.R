@@ -58,4 +58,3 @@ getdata <- function(x, package_name = NULL) {
 
   e[[name]]
 }
-

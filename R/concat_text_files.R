@@ -26,7 +26,6 @@ concat_text_files <- function(source_dir,
                               comment_start = "<!---",
                               comment_end = "--->",
                               source_comment = "filename") {
-
   pattern <- paste0("\\.", extension, "$")
   files <- list.files(source_dir, pattern = pattern, full.names = TRUE)
 
@@ -44,15 +43,16 @@ concat_text_files <- function(source_dir,
     lines <- stringr::str_trim(lines, side = "right")
 
     if (add_source_comment) {
-      file_id <- switch(
-        source_comment,
+      file_id <- switch(source_comment,
         filename = basename(f),
         path = f,
         basename = basename(f),
         f
       )
-      comment_block <- paste0(comment_start, " source: ",
-                              file_id, " ", comment_end)
+      comment_block <- paste0(
+        comment_start, " source: ",
+        file_id, " ", comment_end
+      )
       output_lines <- c(output_lines, comment_block, lines)
     } else {
       output_lines <- c(output_lines, lines)
