@@ -1,16 +1,20 @@
 Package: reprextemplates
-Title: Reprex Media Asset Templates
-Version: 0.1.15
+Title: Reprex Media Asset Templates And Utilities
+Version: 0.1.16
 Authors@R: 
     person("Daniel", "Antal", 
            email = "daniel.antal@dataobservatory.eu", 
            role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7513-6760"))
-Description: Create reproducible media assets for Reprex BV and its collaboration partners.
+Description: Tools for creating reproducible media assets and supporting 
+    file workflows. Includes utilities for concatenating text files, 
+    renaming exported assets (e.g. presentation slides), and generating 
+    consistent color palettes. Designed to support reproducible reporting, 
+    documentation, and lightweight data processing workflows. Developed for 
+    Reprex B.V. and collaborating developers and partners.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports: 
     assertthat,
     grDevices,
@@ -23,3 +27,4 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Config/roxygen2/version: 8.0.0

@@ -7,9 +7,15 @@
 create_palette(color1, color2, palette_length = 5, used_colors = NULL)
 }
 \arguments{
+\item{color1}{First color.}
+
+\item{color2}{Second color.}
+
 \item{palette_length}{How many shades to add, including the two starting colors (white and \code{x}).}
 
-\item{x}{The color to start with.}
+\item{used_colors}{Integer indices selecting which colors to return
+from the generated palette. Defaults to all colors.
+Values must be between 1 and palette_length.}
 }
 \description{
 Create colors

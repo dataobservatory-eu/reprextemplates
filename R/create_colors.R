@@ -1,7 +1,10 @@
 #' @title Create colors
-#' @param x The color to start with.
+#' @param color1 First color.
+#' @param color2 Second color.
 #' @param palette_length How many shades to add, including the two starting colors (white and \code{x}).
-#' @inheritParams reprex_palette
+#' @param used_colors Integer indices selecting which colors to return
+#'   from the generated palette. Defaults to all colors.
+#'   Values must be between 1 and palette_length.
 #' @importFrom grDevices colorRampPalette
 #' @importFrom assertthat assert_that
 #' @export
@@ -70,7 +73,10 @@ create_palette <- function(color1, color2, palette_length = 5, used_colors = NUL
 #' \code{\link{create_palette}} with the parameters
 #' set to \code{color1=color} and \code{color2='white'}.
 #' @param color The color for which you need shades.
-#' @inheritParams create_palette
+#' @param palette_length Number of colors to generate.
+#' @param used_colors Integer indices selecting which colors to return
+#'   from the generated palette. Defaults to all colors.
+#'   Values must be between 1 and palette_length.
 #' @examples
 #' create_shades(color = c(violet = "#4E115A"))
 #' @export

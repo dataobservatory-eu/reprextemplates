@@ -24,7 +24,7 @@ A palette of \code{#007CBB}, \code{#4EC0E4}, \code{#00843A},
 reprex_palette(ext = TRUE)
 }
 \seealso{
-Other color functions: 
-\code{\link{add_greys}()}
+Other color functions:
+\code{\link[=add_greys]{add_greys()}}
 }
 \concept{color functions}

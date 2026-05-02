@@ -39,10 +39,8 @@ reprex_palette <- function(ext = FALSE) {
 
 
 sr_palette <- function(ext = FALSE) {
-  .Deprecated(new,
-    package = NULL,
-    msg = "sr_palette(ext=FALSE) is deprecated, use reprex_palette(ext=...) instead.",
-    old = "use reprex_palette(ext=...) instead"
+  .Deprecated(NULL,
+              msg = "sr_palette(ext=FALSE) is deprecated, use reprex_palette(ext=...) instead."
   )
 
   reprex_palette(ext)

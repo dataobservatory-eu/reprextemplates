@@ -41,7 +41,7 @@ palette_europe_countries <- function(europe_countries_4 = FALSE) {
     "ES" = my_palette[["yellow"]],
     "PT" = my_palette[["red"]],
     "IT" = my_palette[["green"]],
-    "IS" = my_palette[["purple"]],
+    "IS" = my_palette[["violet"]],
     "SE" = my_palette[["yellow"]],
     "DK" = my_palette[["red"]],
     "FI" = my_palette[["darkblue"]],
@@ -81,7 +81,7 @@ palette_europe_countries <- function(europe_countries_4 = FALSE) {
     "GB" = my_palette[["darkblue"]],
     "IE" = my_palette[["darkgreen"]],
     "DE" = "black",
-    "IS" = my_palette[["purple"]],
+    "IS" = my_palette[["violet"]],
     "AT" = my_palette[["red"]],
     "SI" = my_palette[["blue"]],
     "FR" = my_palette[["darkblue"]],
@@ -104,6 +104,6 @@ palette_europe_countries <- function(europe_countries_4 = FALSE) {
     "MD" = my_palette[["darkblue"]],
     "BA" = my_palette[["darkblue"]],
     "XK" = "black",
-    "UA" = my_palette[["yellow"]],
+    "UA" = my_palette[["yellow"]]
   )
 }

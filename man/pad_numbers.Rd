@@ -19,4 +19,3 @@ Pad numbers with leading zeros
 \examples{
 pad_numbers(c(1, 12, 132))
 }
-\keyword{export}

@@ -30,9 +30,9 @@ add_greys(c("red", "blue"), grey_levels = c(20, 80))
 
 }
 \seealso{
-\code{\link[grDevices:gray]{grDevices::grey()}}
+\code{\link[grDevices:grey]{grDevices::grey()}}
 
-Other color functions: 
-\code{\link{reprex_palette}()}
+Other color functions:
+\code{\link[=reprex_palette]{reprex_palette()}}
 }
 \concept{color functions}

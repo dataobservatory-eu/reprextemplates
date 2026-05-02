@@ -8,7 +8,8 @@ concat_text_files(
   source_dir,
   extension = "txt",
   output_file = "combined.txt",
-  add_source_comment = FALSE,
+  recursive = FALSE,
+  add_source_comment = TRUE,
   comment_start = "<!---",
   comment_end = "--->",
   source_comment = "filename"
@@ -17,22 +18,21 @@ concat_text_files(
 \arguments{
 \item{source_dir}{Directory containing the files.}
 
-\item{extension}{File extension (without dot) to match, e.g. \code{"txt"}.}
+\item{extension}{Character vector of extensions or patterns:
+e.g. c("R", "bak"), c("Rmd", "qmd"), or "*md".}
 
 \item{output_file}{Path to the output file to be written.}
 
-\item{add_source_comment}{Logical; if \code{TRUE}, insert comment lines indicating
-the source file between each block.}
+\item{recursive}{Logical; search subdirectories (default FALSE).}
 
-\item{comment_start, comment_end}{Strings marking the start and end of comment
-blocks (default HTML style \code{"<!---"} / \code{"--->"}).}
+\item{add_source_comment}{Logical; insert source comments (default TRUE).}
 
-\item{source_comment}{Type of information in the comment; currently
-\code{"filename"} (default). Future options could include \code{"path"} or
-\code{"basename"}.}
+\item{comment_start, comment_end}{Comment delimiters.}
+
+\item{source_comment}{"filename", "path", or "basename".}
 }
 \value{
-(Invisibly) the path to the combined output file.
+(Invisibly) the output file path.
 }
 \description{
 Combine all files of a given extension (e.g. \code{txt}, \code{md}, \code{bib}) from a

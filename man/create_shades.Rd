@@ -9,7 +9,11 @@ create_shades(color, palette_length = 11, used_colors = c(11, 8))
 \arguments{
 \item{color}{The color for which you need shades.}
 
-\item{palette_length}{How many shades to add, including the two starting colors (white and \code{x}).}
+\item{palette_length}{Number of colors to generate.}
+
+\item{used_colors}{Integer indices selecting which colors to return
+from the generated palette. Defaults to all colors.
+Values must be between 1 and palette_length.}
 }
 \description{
 Create a discrete color palette of the shades of a single color (and white.)

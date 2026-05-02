@@ -21,7 +21,15 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/dataobservatory-eu/reprextemplates/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dataobservatory-eu/reprextemplates?branch=main)
 <!-- badges: end -->
 
-The goal of reprextemplates is to provide reproducible visual assets for Reprex BV and its collaboration partners.
+The goal of reprextemplates is to support reproducible media assets and 
+file-based workflows. It provides small, practical utilities for 
+combining text files, renaming exported assets (such as presentation 
+slides), and generating consistent color palettes for reporting and 
+visualisation. It is desgined for Reprex B.V. and its collaborating partners.
+
+The package is designed for lightweight, reproducible documentation 
+pipelines and internal project workflows, where consistency and 
+traceability of outputs are important.
 
 ## Installation
 

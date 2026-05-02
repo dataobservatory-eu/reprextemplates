@@ -4,7 +4,7 @@
 #' numbers.
 #' @examples
 #' pad_numbers(c(1, 12, 132))
-#' @keywords export
+#' @export
 pad_numbers <- function(numbers) {
   width <- nchar(as.character(max(numbers)))
   sprintf(paste0("%0", width, "d"), numbers)
