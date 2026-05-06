@@ -1,0 +1,13 @@
+project:
+  type: book
+
+book:
+  chapters:
+    - test1.qmd
+    - test2.qmd
+    - test3.qmd
+
+bibliography:
+  - bib/test1.bib
+  - bib/test2.bib
+  - bib/test3.bib
