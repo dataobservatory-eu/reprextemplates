@@ -10,8 +10,7 @@ concat_yml_text_files(
   add_source_comment = TRUE,
   comment_start = "<!---",
   comment_end = "--->",
-  source_comment = "filename",
-  include_sections = c("chapters", "appendices", "bibliography")
+  source_comment = "filename"
 )
 }
 \arguments{
@@ -24,13 +23,11 @@ concat_yml_text_files(
 \item{comment_start, comment_end}{Comment delimiters.}
 
 \item{source_comment}{"filename", "path", or "basename".}
-
-\item{include_sections}{Which YAML sections to include.}
 }
 \value{
 (Invisibly) the output file path.
 }
 \description{
-Reads a Quarto \verb{_quarto.yml} (or similar YAML) and concatenates
-the referenced text files (chapters, appendices, bibliography).
+Lightweight parser: extracts lines that start with "-" and end with
+.qmd or .bib. No YAML dependency required.
 }

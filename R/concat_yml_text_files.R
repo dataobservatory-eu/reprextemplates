@@ -1,17 +1,15 @@
 #' Concatenate files referenced in a Quarto YAML into a single file
 #'
-#' Reads a Quarto `_quarto.yml` (or similar YAML) and concatenates
-#' the referenced text files (chapters, appendices, bibliography).
+#' Lightweight parser: extracts lines that start with "-" and end with
+#' .qmd or .bib. No YAML dependency required.
 #'
 #' @param yml_file Path to the YAML file.
 #' @param output_file Output file path.
 #' @param add_source_comment Logical; include source comments.
 #' @param comment_start,comment_end Comment delimiters.
 #' @param source_comment "filename", "path", or "basename".
-#' @param include_sections Which YAML sections to include.
 #'
 #' @return (Invisibly) the output file path.
-#' @importFrom yaml read_yaml
 #' @importFrom stringr str_trim
 #' @export
 concat_yml_text_files <- function(
@@ -20,34 +18,25 @@ concat_yml_text_files <- function(
     add_source_comment = TRUE,
     comment_start = "<!---",
     comment_end = "--->",
-    source_comment = "filename",
-    include_sections = c("chapters", "appendices", "bibliography")
+    source_comment = "filename"
 ) {
 
-  # --- read YAML ---
-  yml <- yaml::read_yaml(yml_file)
+  # --- read raw YAML as text ---
+  yml_lines <- readLines(yml_file, warn = FALSE)
+
+  # --- extract file references ---
+  # pattern: "- something.qmd" or "- something.bib"
+  matches <- grep(
+    "^\\s*-\\s*[^#]+\\.(qmd|bib)\\s*$",
+    yml_lines,
+    value = TRUE
+  )
+
+  # clean "- " prefix and whitespace
+  files <- sub("^\\s*-\\s*", "", matches)
+  files <- trimws(files)
 
   base_dir <- dirname(yml_file)
-
-  files <- character()
-
-  # --- extract chapters ---
-  if ("chapters" %in% include_sections &&
-      !is.null(yml$book$chapters)) {
-    files <- c(files, yml$book$chapters)
-  }
-
-  # --- extract appendices ---
-  if ("appendices" %in% include_sections &&
-      !is.null(yml$book$appendices)) {
-    files <- c(files, yml$book$appendices)
-  }
-
-  # --- extract bibliography ---
-  if ("bibliography" %in% include_sections &&
-      !is.null(yml$bibliography)) {
-    files <- c(files, yml$bibliography)
-  }
 
   # --- normalize paths ---
   files <- file.path(base_dir, files)
@@ -72,7 +61,7 @@ concat_yml_text_files <- function(
     stop("No valid files found in YAML.", call. = FALSE)
   }
 
-  # --- preserve YAML order (no sorting!) ---
+  # --- concatenate ---
   output_lines <- character()
 
   for (f in files) {

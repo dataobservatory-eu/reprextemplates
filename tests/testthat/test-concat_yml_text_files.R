@@ -29,13 +29,15 @@ test_that("concat_yml_text_files warns on missing files but still works", {
     example_dir <- testthat::test_path("../inst/quarto-example")
   }
 
-  # --- create modified YAML with a missing file ---
+  # --- YAML with missing files ---
   yml_file <- file.path(example_dir, "_quarto2.yml")
+
+  out <- tempfile(fileext = ".txt")   # ← MISSING LINE FIXED
 
   # --- expect warning but successful execution ---
   expect_warning(
     concat_yml_text_files(yml_file, out),
-    "not found"
+    "files listed in YAML were not found"
   )
 
   expect_true(file.exists(out))
