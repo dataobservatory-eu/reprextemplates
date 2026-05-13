@@ -1,5 +1,6 @@
 #' @title Rename PowerPoint Slides
-#' @param directory Directory containing Slide*.EXT files
+#' @param directory Directory containing exported Slide*.EXT files made from a
+#' PowerPoint presentation, typically in the form of `Slide1.PNG`.
 #' @param presentation_name Base name for output files
 #' @param extension File extension to match (case-sensitive, e.g. "PNG", "JPG")
 #' @return Invisibly returns new file names
@@ -23,6 +24,8 @@ rename_ppt_slides <- function(directory = ".",
   if (length(files) == 0) {
     warning("No matching files found.")
     return(invisible(NULL))
+  } else {
+    message(length(files), " files found.")
   }
 
   # --- guard: check for other Slide files with different extensions ---

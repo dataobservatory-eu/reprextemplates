@@ -11,7 +11,8 @@ rename_ppt_slides(
 )
 }
 \arguments{
-\item{directory}{Directory containing Slide*.EXT files}
+\item{directory}{Directory containing exported Slide*.EXT files made from a
+PowerPoint presentation, typically in the form of \code{Slide1.PNG}.}
 
 \item{presentation_name}{Base name for output files}
 
