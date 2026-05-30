@@ -23,7 +23,7 @@
 #' @param root_dir Root directory to search recursively.
 #'   Defaults to [here::here()] when `NULL`.
 #' @param exclude_patterns Defaults to `c("/tests/testthat/testdata/",
-#' "/inst/extdata/")`
+#' "/inst/extdata/", ".Rcheck")`
 #'
 #' @return Invisibly returns a character vector containing the
 #'   directories for which review bundles were created.
@@ -52,7 +52,8 @@ create_review_bundles <- function(
   root_dir = NULL,
   exclude_patterns = c(
     "/tests/testthat/testdata/",
-    "/inst/"
+    "/inst/",
+    ".Rcheck"
   )
 ) {
   if (is.null(root_dir)) {
@@ -66,7 +67,8 @@ create_review_bundles <- function(
   )
 
   candidate_dirs <- normalizePath(
-    c(root_dir, candidate_dirs), winslash = "/", mustWork = TRUE
+    c(root_dir, candidate_dirs),
+    winslash = "/", mustWork = TRUE
   )
 
   candidate_dirs <- unique(candidate_dirs)
@@ -135,42 +137,4 @@ create_review_bundles <- function(
   }
 
   invisible(processed)
-}
-
-
-#' Detect review profile from project structure
-#'
-#' @param path Directory to inspect.
-#'
-#' @return A profile name or `NULL`.
-#'
-#' @keywords internal
-#' @noRd
-detect_review_profile <- function(path) {
-  if (
-    all(
-      file.exists(
-        file.path(
-          path,
-          c("DESCRIPTION", "NAMESPACE")
-        )
-      )
-    )
-  ) {
-    return("r_package")
-  }
-
-  if (file.exists(file.path(path, "_quarto.yml"))) {
-    return("quarto")
-  }
-
-  if (
-    file.exists(file.path(path, "config.toml")) ||
-    file.exists(file.path(path, "config.yaml")) ||
-    file.exists(file.path(path, "config.yml"))
-  ) {
-    return("hugo")
-  }
-
-  NULL
 }
