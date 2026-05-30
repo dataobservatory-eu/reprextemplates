@@ -70,3 +70,96 @@ test_that("create_review_bundles detects profiles correctly", {
     )
   )
 })
+
+
+test_that("create_review_bundles creates ignore files without duplicates", {
+  fixture <- test_path(
+    "testdata",
+    "review_bundles"
+  )
+
+  root_dir <- file.path(
+    tempdir(),
+    "review_bundles"
+  )
+
+  unlink(root_dir, recursive = TRUE)
+
+  copy_fixture(
+    fixture,
+    root_dir
+  )
+
+  create_review_bundles(
+    root_dir,
+    exclude_patterns = NULL
+  )
+
+  create_review_bundles(
+    root_dir,
+    exclude_patterns = NULL
+  )
+
+  create_review_bundles(
+    root_dir,
+    exclude_patterns = NULL
+  )
+
+  gitignore <- readLines(
+    file.path(
+      root_dir,
+      "package1",
+      ".gitignore"
+    )
+  )
+
+  expect_equal(
+    sum(gitignore == "review-package1.txt"),
+    1
+  )
+
+  rbuildignore <- readLines(
+    file.path(
+      root_dir,
+      "package1",
+      ".Rbuildignore"
+    )
+  )
+
+  expect_equal(
+    sum(
+      rbuildignore ==
+        "^review-package1.txt$"
+    ),
+    1
+  )
+
+  gitignore <- readLines(
+    file.path(
+      root_dir,
+      "package2",
+      ".gitignore"
+    )
+  )
+
+  expect_equal(
+    sum(gitignore == "review-package2.txt"),
+    1
+  )
+
+  rbuildignore <- readLines(
+    file.path(
+      root_dir,
+      "package2",
+      ".Rbuildignore"
+    )
+  )
+
+  expect_equal(
+    sum(
+      rbuildignore ==
+        "^review-package2.txt$"
+    ),
+    1
+  )
+})
