@@ -36,41 +36,18 @@
 #'
 #' @return Invisibly returns the path to the created file.
 #'
+#' @seealso  [concat_text_files()], [concat_files_profile()],
+#' [create_review_bundles()]
+#'
 #' @examples
-#' example_dir <- tempfile("bundle")
-#' dir.create(example_dir)
-#'
-#' writeLines(
-#'   "Package: examplepkg",
-#'   file.path(example_dir, "DESCRIPTION")
-#' )
-#'
-#' writeLines(
-#'   "# Example package",
-#'   file.path(example_dir, "README.md")
-#' )
-#'
-#' output_file <- file.path(
-#'   tempdir(),
-#'   "package_review.txt"
-#' )
-#'
-#' groups <- list(
-#'   list(
-#'     files = c(
-#'       "DESCRIPTION",
-#'       "README.md"
-#'     )
-#'   )
-#' )
-#'
+#' \dontrun{
 #' concat_ordered_text_files(
-#'   source_dir = example_dir,
-#'   groups = groups,
-#'   output_file = output_file
+#'   source_dir = here::here("tests", "testthat"),
+#'   groups = concat_files_profile("testthat"),
+#'   profile = "testthat",
+#'   output_file = "review-tests.txt"
 #' )
-#'
-#' file.exists(output_file)
+#' }
 #' @importFrom stringr str_trim
 #' @importFrom here here
 #' @export
@@ -101,9 +78,7 @@ concat_ordered_text_files <- function(
   }
 
   if (!is.null(profile) &&
-    (!is.character(profile) ||
-      length(profile) != 1 ||
-      is.na(profile))) {
+    (!is.character(profile) || length(profile) != 1 || is.na(profile))) {
     stop(
       "`profile` must be NULL or a single character value.",
       call. = FALSE
@@ -114,8 +89,7 @@ concat_ordered_text_files <- function(
 
   source_dir <- normalizePath(
     source_dir,
-    winslash = "/",
-    mustWork = TRUE
+    winslash = "/", mustWork = TRUE
   )
 
   selected_files <- character()
@@ -127,21 +101,13 @@ concat_ordered_text_files <- function(
         group$files
       )
 
-      explicit_files <- explicit_files[
-        file.exists(explicit_files)
-      ]
+      explicit_files <- explicit_files[file.exists(explicit_files)]
 
-      selected_files <- c(
-        selected_files,
-        explicit_files
-      )
+      selected_files <- c(selected_files, explicit_files)
     }
 
     if (!is.null(group$folder)) {
-      folder_path <- file.path(
-        source_dir,
-        group$folder
-      )
+      folder_path <- file.path(source_dir, group$folder)
 
       if (!dir.exists(folder_path)) next
 
@@ -159,18 +125,11 @@ concat_ordered_text_files <- function(
         )
 
         folder_files <- folder_files[
-          grepl(
-            pattern,
-            folder_files,
-            ignore.case = TRUE
-          )
+          grepl(pattern, folder_files, ignore.case = TRUE)
         ]
       }
 
-      selected_files <- c(
-        selected_files,
-        sort(folder_files)
-      )
+      selected_files <- c(selected_files, sort(folder_files))
     }
   }
 

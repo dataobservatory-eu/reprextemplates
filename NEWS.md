@@ -1,9 +1,20 @@
+# reprextemplates 0.2.0
+
+* Add review bundle workflow with `concat_ordered_text_files()`,
+  `concat_files_profile()`, and `create_review_bundles()`.
+* Improve package review and forensic inspection workflows through
+  profile-based file selection and ordered concatenation.
+* Clarify documentation hierarchy between `concat_text_files()`,
+  `concat_ordered_text_files()`, and `create_review_bundles()`.
+
 # reprextemplates 0.1.19
 
-* Add `concat_ordered_text_files()` to create ordered review bundles from package files and directories.
-* Add `concat_files_profile()` to provide reusable file selection profiles for review bundle generation.
-* Add `create_package_review_bundles()` to generate package review bundles for all R packages in a directory tree.
-* Add package review bundle fixtures under `tests/testthat/testdata` for integration testing.
+* Add `concat_ordered_text_files()` to create ordered review bundles from 
+  package files and directories.
+* Add `concat_files_profile()` to provide reusable file selection profiles for
+  review bundle generation.
+* Add package review bundle fixtures under `tests/testthat/testdata` for 
+  integration testing.
 * Improve integration tests for package review bundle creation and idempotency.
 
 # reprextemplates 0.1.17

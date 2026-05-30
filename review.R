@@ -20,3 +20,8 @@ concat_ordered_text_files(
   profile = "testthat",
   output_file = "review-tests.txt"
 )
+
+
+create_review_bundles(root_dir = "D:/_markdown")
+
+dir(here::here("D:/_markdown", "GraphNotes"))

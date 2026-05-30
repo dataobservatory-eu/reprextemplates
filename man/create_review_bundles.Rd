@@ -25,6 +25,10 @@ and creates review bundles using the corresponding profile from
 \code{\link[=concat_files_profile]{concat_files_profile()}}.
 }
 \details{
+This is the recommended interface for creating review bundles.
+For custom project structures or user-defined profiles,
+use \code{\link[=concat_ordered_text_files]{concat_ordered_text_files()}} directly.
+
 Currently supported project types are:
 \itemize{
 \item \code{r_package}: directories containing both \code{DESCRIPTION} and \code{NAMESPACE}

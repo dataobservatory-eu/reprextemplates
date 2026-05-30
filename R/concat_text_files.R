@@ -4,6 +4,12 @@
 #' source directory into one output file. Optionally inserts comment blocks
 #' identifying the source file for traceability.
 #'
+#' @details
+#' A lightweight file concatenation utility.
+#'
+#' For reproducible review bundles and profile-based project reviews,
+#' see [concat_ordered_text_files()] and [create_review_bundles()].
+#'
 #' @param source_dir Directory containing the files.
 #' @param extension Character vector of extensions or patterns:
 #'   e.g. c("R", "bak"), c("Rmd", "qmd"), or "*md".
@@ -15,6 +21,8 @@
 #'
 #' @return (Invisibly) the output file path.
 #' @importFrom stringr str_trim
+#' @seealso [concat_text_files()], [concat_files_profile()],
+#' [create_review_bundles()]
 #' @export
 concat_text_files <- function(
   source_dir,

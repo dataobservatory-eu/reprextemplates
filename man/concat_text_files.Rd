@@ -39,3 +39,13 @@ Combine all files of a given extension (e.g. \code{txt}, \code{md}, \code{bib}) 
 source directory into one output file. Optionally inserts comment blocks
 identifying the source file for traceability.
 }
+\details{
+A lightweight file concatenation utility.
+
+For reproducible review bundles and profile-based project reviews,
+see \code{\link[=concat_ordered_text_files]{concat_ordered_text_files()}} and \code{\link[=create_review_bundles]{create_review_bundles()}}.
+}
+\seealso{
+\code{\link[=concat_text_files]{concat_text_files()}}, \code{\link[=concat_files_profile]{concat_files_profile()}},
+\code{\link[=create_review_bundles]{create_review_bundles()}}
+}

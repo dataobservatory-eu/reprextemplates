@@ -4,6 +4,11 @@
 #' and creates review bundles using the corresponding profile from
 #' [concat_files_profile()].
 #'
+#' This is the recommended interface for creating review bundles.
+#' For custom project structures or user-defined profiles,
+#' use [concat_ordered_text_files()] directly.
+#'
+#' @details
 #' Currently supported project types are:
 #'
 #' - `r_package`: directories containing both `DESCRIPTION` and `NAMESPACE`

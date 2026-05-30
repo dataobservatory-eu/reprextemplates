@@ -65,38 +65,16 @@ directory group, files are sorted alphabetically to ensure
 reproducibility.
 }
 \examples{
-example_dir <- tempfile("bundle")
-dir.create(example_dir)
-
-writeLines(
-  "Package: examplepkg",
-  file.path(example_dir, "DESCRIPTION")
-)
-
-writeLines(
-  "# Example package",
-  file.path(example_dir, "README.md")
-)
-
-output_file <- file.path(
-  tempdir(),
-  "package_review.txt"
-)
-
-groups <- list(
-  list(
-    files = c(
-      "DESCRIPTION",
-      "README.md"
-    )
-  )
-)
-
+\dontrun{
 concat_ordered_text_files(
-  source_dir = example_dir,
-  groups = groups,
-  output_file = output_file
+  source_dir = here::here("tests", "testthat"),
+  groups = concat_files_profile("testthat"),
+  profile = "testthat",
+  output_file = "review-tests.txt"
 )
-
-file.exists(output_file)
+}
+}
+\seealso{
+\code{\link[=concat_text_files]{concat_text_files()}}, \code{\link[=concat_files_profile]{concat_files_profile()}},
+\code{\link[=create_review_bundles]{create_review_bundles()}}
 }
