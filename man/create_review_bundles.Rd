@@ -6,14 +6,14 @@
 \usage{
 create_review_bundles(
   root_dir = NULL,
-  exclude_patterns = c("/tests/testthat/testdata/", "/inst/")
+  exclude_patterns = c("/tests/testthat/testdata/", "/inst/", ".Rcheck")
 )
 }
 \arguments{
 \item{root_dir}{Root directory to search recursively.
 Defaults to \code{\link[here:here]{here::here()}} when \code{NULL}.}
 
-\item{exclude_patterns}{Defaults to \code{c("/tests/testthat/testdata/", "/inst/extdata/")}}
+\item{exclude_patterns}{Defaults to \code{c("/tests/testthat/testdata/", "/inst/extdata/", ".Rcheck")}}
 }
 \value{
 Invisibly returns a character vector containing the
