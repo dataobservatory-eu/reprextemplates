@@ -1,5 +1,4 @@
 test_that("concat_yml_text_files works on example project", {
-
   example_dir <- system.file("quarto-example", package = "reprextemplates")
   yml_file <- file.path(example_dir, "_quarto.yml")
 
@@ -21,7 +20,6 @@ test_that("concat_yml_text_files works on example project", {
 
 
 test_that("concat_yml_text_files warns on missing files but still works", {
-
   # --- locate example ---
   example_dir <- system.file("quarto-example", package = "reprextemplates")
 
@@ -32,7 +30,7 @@ test_that("concat_yml_text_files warns on missing files but still works", {
   # --- YAML with missing files ---
   yml_file <- file.path(example_dir, "_quarto2.yml")
 
-  out <- tempfile(fileext = ".txt")   # ← MISSING LINE FIXED
+  out <- tempfile(fileext = ".txt") # ← MISSING LINE FIXED
 
   # --- expect warning but successful execution ---
   expect_warning(

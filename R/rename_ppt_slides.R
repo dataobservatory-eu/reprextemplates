@@ -8,7 +8,6 @@
 rename_ppt_slides <- function(directory = ".",
                               presentation_name = "presentation",
                               extension = "PNG") {
-
   if (!dir.exists(directory)) {
     stop(directory, " does not exist.")
   }

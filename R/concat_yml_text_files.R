@@ -13,14 +13,13 @@
 #' @importFrom stringr str_trim
 #' @export
 concat_yml_text_files <- function(
-    yml_file,
-    output_file = "combined.txt",
-    add_source_comment = TRUE,
-    comment_start = "<!---",
-    comment_end = "--->",
-    source_comment = "filename"
+  yml_file,
+  output_file = "combined.txt",
+  add_source_comment = TRUE,
+  comment_start = "<!---",
+  comment_end = "--->",
+  source_comment = "filename"
 ) {
-
   # --- read raw YAML as text ---
   yml_lines <- readLines(yml_file, warn = FALSE)
 
@@ -45,7 +44,7 @@ concat_yml_text_files <- function(
   exists <- file.exists(files)
 
   missing <- files[!exists]
-  files   <- files[exists]
+  files <- files[exists]
 
   if (length(missing) > 0) {
     warning(
@@ -65,14 +64,11 @@ concat_yml_text_files <- function(
   output_lines <- character()
 
   for (f in files) {
-
     lines <- readLines(f, warn = FALSE)
     lines <- stringr::str_trim(lines, side = "right")
 
     if (add_source_comment) {
-
-      file_id <- switch(
-        source_comment,
+      file_id <- switch(source_comment,
         filename = basename(f),
         path = f,
         basename = basename(f),
@@ -85,7 +81,6 @@ concat_yml_text_files <- function(
       )
 
       output_lines <- c(output_lines, comment_block, lines)
-
     } else {
       output_lines <- c(output_lines, lines)
     }
@@ -94,7 +89,7 @@ concat_yml_text_files <- function(
   writeLines(output_lines, con = output_file)
 
   # --- reporting ---
-  n_total   <- length(files) + length(missing)
+  n_total <- length(files) + length(missing)
   n_missing <- length(missing)
 
   message(

@@ -3,7 +3,6 @@
 ^LICENSE\.md$
 ^README\.Rmd$
 ^appveyor\.yml$
-^CODE_OF_CONDUCT\.md$
 ^codecov\.yml$
 ^\.github$
 ^_pkgdown\.yml$
@@ -11,3 +10,11 @@
 ^pkgdown$
 ^\.positai$
 ^\.claude$
+^CONTRIBUTING\.md$
+^CODING-GUIDELINES\.md$
+^CODE_OF_CONDUCT\.md$
+^ChatGPT*\.pdf$
+^review.R$
+
+^review-reprextemplates.txt$
+
