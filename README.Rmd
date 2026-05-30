@@ -78,6 +78,18 @@ data.frame(
   )
 ```
 
-## Code of Conduct
-  
-Please note that the reprextemplates project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+## Contributing and Development Guidelines
+
+This package is primarily an internal utility package, but its development
+follows standard R package conventions.
+
+The repository contains three project-level guidance files:
+
+- `CONTRIBUTING.md` explains how to contribute, document, test, and submit
+  changes.
+- `CODING-GUIDELINES.md` describes the preferred coding style, refactoring
+  principles, and package-development practices.
+- `CODE_OF_CONDUCT.md` sets out the contributor code of conduct.
+
+These files are intended for human contributors, future maintainers, and
+AI-assisted development workflows.

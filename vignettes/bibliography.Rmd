@@ -84,12 +84,14 @@ so each block in the merged file can always be traced back to its origin.
 The following code block creates a Finno-Ugric Studies and data curation bibliography from all project files in the `bib` subfolder of the Finno-Ugric project repository of RStudio/Quarto or other markdown editor.
 
 ```{r concat, eval=FALSE}
-concat_text_files(source_dir = "bib", 
-                  extension = "bib", 
-                  output_file = "finno-ugric-bibliograpy.bib", 
-                  add_source_comment = TRUE,
-                  comment_start = "@Comment{",
-                  comment_end   = "}")
+concat_text_files(
+  source_dir = "bib",
+  extension = "bib",
+  output_file = "finno-ugric-bibliograpy.bib",
+  add_source_comment = TRUE,
+  comment_start = "@Comment{",
+  comment_end = "}"
+)
 ```
 
 ```         

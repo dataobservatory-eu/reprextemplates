@@ -16,25 +16,26 @@
 #' @return (Invisibly) the output file path.
 #' @importFrom stringr str_trim
 #' @export
-concat_text_files <- function(source_dir,
-                              extension = "txt",
-                              output_file = "combined.txt",
-                              recursive = FALSE,
-                              add_source_comment = TRUE,
-                              comment_start = "<!---",
-                              comment_end = "--->",
-                              source_comment = "filename") {
-
-  # --- normalize extension input ---
-  ext_patterns <- vapply(extension, function(ext) {
-    if (grepl("\\*", ext)) {
-      # convert glob to regex: "*md" -> ".*md$"
-      paste0(gsub("\\*", ".*", ext), "$")
-    } else {
-      # normal extension: "txt" -> "\\.txt$"
-      paste0("\\.", ext, "$")
-    }
-  }, character(1))
+concat_text_files <- function(
+  source_dir,
+  extension = "txt",
+  output_file = "combined.txt",
+  recursive = FALSE,
+  add_source_comment = TRUE,
+  comment_start = "<!---",
+  comment_end = "--->",
+  source_comment = "filename"
+) {
+  ext_patterns <- vapply(
+    extension,
+    function(ext) {
+      if (grepl("\\*", ext)) {
+        paste0(gsub("\\*", ".*", ext), "$")
+      } else {
+        paste0("\\.", ext, "$")
+      }
+    }, character(1)
+  )
 
   pattern <- paste(ext_patterns, collapse = "|")
 
@@ -46,16 +47,17 @@ concat_text_files <- function(source_dir,
     ignore.case = TRUE
   )
 
-  # Exclude output file if inside source_dir
   files <- files[basename(files) != basename(output_file)]
 
   if (length(files) == 0) {
-    stop("No files found for pattern: ", paste(extension, collapse = ", "))
+    stop(
+      "No files found for pattern: ",
+      paste(extension, collapse = ", "),
+      call. = FALSE
+    )
   }
 
-  # --- deterministic order (important!) ---
   files <- sort(files)
-
   output_lines <- character()
 
   for (f in files) {
@@ -64,18 +66,16 @@ concat_text_files <- function(source_dir,
 
     if (add_source_comment) {
       file_id <- switch(source_comment,
-                        filename = basename(f),
-                        path = f,
-                        basename = basename(f),
-                        f
+        filename = basename(f),
+        path = f,
+        basename = basename(f),
+        f
       )
-
-      comment_block <- paste0(
-        comment_start, " source: ",
-        file_id, " ", comment_end
+      output_lines <- c(
+        output_lines,
+        paste0(comment_start, " source: ", file_id, " ", comment_end),
+        lines
       )
-
-      output_lines <- c(output_lines, comment_block, lines)
     } else {
       output_lines <- c(output_lines, lines)
     }
@@ -83,11 +83,7 @@ concat_text_files <- function(source_dir,
 
   writeLines(output_lines, con = output_file)
 
-  message(
-    "Combined ", length(files),
-    " files into ", output_file
-  )
+  message("Combined ", length(files), " files into ", output_file)
 
   invisible(output_file)
 }
-

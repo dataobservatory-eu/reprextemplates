@@ -1,0 +1,17 @@
+^reprextemplates\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^appveyor\.yml$
+^codecov\.yml$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.positai$
+^\.claude$
+^CONTRIBUTING\.md$
+^CODING-GUIDELINES\.md$
+^CODE_OF_CONDUCT\.md$
+^package_review-$
+^review-package1.txt$

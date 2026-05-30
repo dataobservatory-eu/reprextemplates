@@ -1,5 +1,3 @@
-library(testthat)
-
 # Core behavior (no comments) -------------------------------------------
 
 test_that("concat_text_files combines multiple files without comments", {

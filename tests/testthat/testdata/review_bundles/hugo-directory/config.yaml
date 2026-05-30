@@ -1,0 +1,81 @@
+baseurl: https://duna-szemle.hu/
+disablePathToLower: false
+languageCode: hu
+title: Duna Szemle
+theme: Hugo-Octopress
+paginate: 6
+permalinks:
+  post: /blog/:year-:month-:day-:title/
+params:
+  author: Dunai Szemle szerkesztők
+  favicon: "duna.png"
+  continueReadingText: Tovább &rarr;
+  description: ''
+  customCSS:
+    - css/custom.css
+  disableGoogleFonts: true
+  disableReadingTime: false
+  generateTaxonomyList: true
+  github: https://github.com/antaldaniel/dunai-szemle
+  navigationNewWindow: true
+  notFoundHeader: Ide még nem került anyag
+  notFoundText: 'Lépjen vissza a böngészőben, használja a Rovatok vagy Keresés funkciót.\r\n  '
+  rss: true
+  searchEngineURL: https://www.google.com/search
+  sidebarHeader: Újdonságok
+  sidebarMenuEnabled: true
+  sidebarMenuHeader: Linkek
+  sidebarRecentLimit: 5
+  sidebarText: 'Független magyar közéleti, kulturális és regionális szemle
+  a Duna mellől.'
+  subtitle: Áttekintés Európa közepéről
+  textrss: false
+  truncate: true
+menu:
+  main:
+    - name: "'26"
+      URL: /categories/2026/
+      weight: -4
+    - Name: Gazdaság
+      URL: /categories/gazdas%C3%A1g/
+      weight: 2
+    - Name: Társadalom
+      URL: /categories/t%C3%A1rsadalom/
+      weight: 1
+    - Name: Igazság
+      URL: /categories/igazság/
+      weight: 3
+    - Name: Kult
+      URL: /categories/kult%C3%BAra/
+      weight: 4
+    - Name: "Tech & Tudomány"
+      URL: /categories/tech/
+      weight: 5
+    - Name: Duna
+      URL: /categories/duna/
+      weight: 20
+    - Name: Európa
+      URL: /categories/eur%C3%B3pa/
+      weight: 19
+    - Name: Környezet
+      URL: /categories/k%C3%B6rnyezet"
+      weight: 6
+    - Name: "Substack →"
+      URL: https://dunaszemle.substack.com/
+      weight: 99
+  sidebar:
+    - Name: Blog
+      URL: https://dunaszemle.substack.com/
+      weight: 0
+    - Name: Rólunk
+      URL: /rolunk/
+      weight: 1
+    - Name: Szemlézés menete
+      URL: /szemle/
+      weight: 2
+markup:
+  highlight:
+    style: github
+  tableOfContents:
+    endLevel: 8
+    startLevel: 1

@@ -1,0 +1,28 @@
+project:
+  type: book
+
+book:
+  title: "tmp"
+  author: "Norah Jones"
+  date: "30/05/2026"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography:
+    - bib/references.bib
+
+papersize: A4
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
