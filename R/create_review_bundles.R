@@ -67,7 +67,7 @@ create_review_bundles <- function(
 
   candidate_dirs <- normalizePath(
     c(root_dir, candidate_dirs), winslash = "/", mustWork = TRUE
-    )
+  )
 
   candidate_dirs <- unique(candidate_dirs)
 
