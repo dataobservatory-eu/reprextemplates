@@ -66,13 +66,22 @@ create_review_bundles <- function(
   )
 
   candidate_dirs <- normalizePath(
+<<<<<<< HEAD
     c(root_dir, candidate_dirs),
     winslash = "/", mustWork = TRUE
   )
+=======
+    c(root_dir, candidate_dirs), winslash = "/", mustWork = TRUE
+    )
+>>>>>>> 62de7111bccfc9d50b750e11bcc940b3544c4f13
 
   candidate_dirs <- unique(candidate_dirs)
 
   if (!is.null(exclude_patterns)) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 62de7111bccfc9d50b750e11bcc940b3544c4f13
     candidate_dirs <- candidate_dirs[
       !vapply(
         candidate_dirs,
@@ -167,8 +176,8 @@ detect_review_profile <- function(path) {
 
   if (
     file.exists(file.path(path, "config.toml")) ||
-      file.exists(file.path(path, "config.yaml")) ||
-      file.exists(file.path(path, "config.yml"))
+    file.exists(file.path(path, "config.yaml")) ||
+    file.exists(file.path(path, "config.yml"))
   ) {
     return("hugo")
   }
