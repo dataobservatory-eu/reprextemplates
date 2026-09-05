@@ -1,3 +1,7 @@
+# reprextemplates 0.2.1
+* Add media and text layout for Quarto with `media_table()` supported by the 
+  vignette *Media Tables*.
+
 # reprextemplates 0.2.0
 
 * Add review bundle workflow with `concat_ordered_text_files()`,

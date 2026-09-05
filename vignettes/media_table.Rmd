@@ -1,0 +1,109 @@
+---
+title: "Media Tables"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Media Tables}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+#| echo: false
+library(reprextemplates)
+```
+
+After loading the package, load the three example jpg media files.
+
+```{r}
+farmhouse <- system.file(
+  "testdata",
+  "media-table",
+  "P7101565_thumbnail.jpg",
+  package = "reprextemplates"
+)
+
+document <- system.file(
+  "testdata",
+  "media-table",
+  "P7101622_thumbnail.jpg",
+  package = "reprextemplates"
+)
+
+floorplan <- system.file(
+  "testdata",
+  "media-table",
+  "P7101623_thumbnail.jpg",
+  package = "reprextemplates"
+)
+```
+
+## Two media cells
+
+A simple two-column layout containing two images.
+
+```{r}
+#| echo: true
+
+x <- matrix(
+  list(
+    media(document, alt = "Document"),
+    media(floorplan, alt = "Floor plan")
+  ),
+  nrow = 1
+)
+
+media_table(x, widths = c(50, 50))
+```
+
+## Media and text
+
+A two-column layout containing an image and Markdown text.
+
+```{r}
+#| echo: true
+
+x <- matrix(
+  list(
+    media(farmhouse, alt = "Farmhouse"),
+    paste(
+      "We created five images of the",
+      "*farmhouse (dzīvojamā māja)* from two directions."
+    )
+  ),
+  nrow = 1
+)
+
+media_table(x, widths = c(50, 50))
+```
+
+## Four-element layout
+
+The same mechanism can create a rectangular layout containing an arbitrary
+mixture of media and text.
+
+```{r}
+#| echo: true
+
+x <- matrix(
+  list(
+    media(document, alt = "Document"),
+    media(floorplan, alt = "Floor plan"),
+    paste(
+      "The *farmhouse (dzīvojamā māja)* is represented",
+      "by several related records."
+    ),
+    media(farmhouse, alt = "Farmhouse")
+  ),
+  nrow = 2,
+  byrow = TRUE
+)
+
+media_table(x, widths = c(50, 50))
+```

@@ -10,6 +10,8 @@ export(create_review_bundles)
 export(create_shades)
 export(getdata)
 export(group_european_countries)
+export(media)
+export(media_table)
 export(pad_numbers)
 export(palette_eu_countries)
 export(palette_europe_countries)
@@ -17,7 +19,18 @@ export(rename_dir_files)
 export(rename_ppt_slides)
 export(reprex_palette)
 importFrom(assertthat,assert_that)
+importFrom(base64enc,base64encode)
 importFrom(grDevices,colorRampPalette)
 importFrom(here,here)
+importFrom(htmltools,htmlEscape)
+importFrom(kableExtra,
+  column_spec,
+  kable_styling
+)
+importFrom(knitr,
+  is_html_output,
+  is_latex_output,
+  kable
+)
 importFrom(stringr,str_trim)
 importFrom(tibble,tribble)
