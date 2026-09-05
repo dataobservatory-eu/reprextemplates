@@ -73,7 +73,8 @@ media <- function(src, width = NULL, alt = "") {
 #'
 #' @details
 #' HTML and LaTeX/PDF output are rendered with `knitr` and `kableExtra`.
-#' Other output formats fall back to a simple pipe table.
+#' Other output formats, including DOCX, use a Markdown pipe table with
+#' Pandoc image-width attributes.
 #'
 #' The LaTeX implementation currently uses a total table width of 15 cm.
 #' Column widths are allocated proportionally within that width.
@@ -312,7 +313,6 @@ media_table <- function(
     return(out)
   }
 
-
   # ==========================================================
   # OTHER OUTPUTS
   # ==========================================================
@@ -326,14 +326,16 @@ media_table <- function(
 
       if (inherits(z, "media_cell")) {
 
+        w <- z$width %||% image_width
+
         cells[i, j] <- sprintf(
-          "![%s](%s)",
+          "![%s](%s){width=\"%s\"}",
           z$alt,
-          z$src
+          z$src,
+          w
         )
 
       } else {
-
         cells[i, j] <- as.character(z)
       }
     }

@@ -45,7 +45,8 @@ cross-references should be supplied by Quarto around the resulting
 layout rather than by \code{media_table()} itself.
 
 HTML and LaTeX/PDF output are rendered with \code{knitr} and \code{kableExtra}.
-Other output formats fall back to a simple pipe table.
+Other output formats, including DOCX, use a Markdown pipe table with
+Pandoc image-width attributes.
 
 The LaTeX implementation currently uses a total table width of 15 cm.
 Column widths are allocated proportionally within that width.
