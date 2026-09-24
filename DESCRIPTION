@@ -1,6 +1,6 @@
 Package: reprextemplates
 Title: Reprex Media Asset Templates And Utilities
-Version: 0.2.1
+Version: 0.2.11
 Authors@R: 
     person("Daniel", "Antal", 
            email = "daniel.antal@dataobservatory.eu", 
@@ -24,7 +24,9 @@ Imports:
     knitr,
     kableExtra,
     base64enc,
-    htmltools
+    htmltools,
+    fscontext,
+    fs
 Suggests:
     covr,
     rmarkdown,

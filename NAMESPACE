@@ -5,6 +5,7 @@ export(concat_files_profile)
 export(concat_ordered_text_files)
 export(concat_text_files)
 export(concat_yml_text_files)
+export(controlled_copy)
 export(create_palette)
 export(create_review_bundles)
 export(create_shades)
@@ -20,6 +21,21 @@ export(rename_ppt_slides)
 export(reprex_palette)
 importFrom(assertthat,assert_that)
 importFrom(base64enc,base64encode)
+importFrom(dplyr,
+  all_of,
+  anti_join,
+  bind_rows,
+  inner_join,
+  mutate,
+  select
+)
+importFrom(fs,
+  dir_create,
+  dir_exists,
+  path,
+  path_real
+)
+importFrom(fscontext,snapshot_storage)
 importFrom(grDevices,colorRampPalette)
 importFrom(here,here)
 importFrom(htmltools,htmlEscape)
