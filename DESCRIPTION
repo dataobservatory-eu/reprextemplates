@@ -15,6 +15,8 @@ Description: Tools for creating reproducible media assets and supporting
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+Depends: 
+    R (>= 4.1.0)
 Imports: 
     assertthat,
     grDevices,
