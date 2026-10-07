@@ -54,15 +54,6 @@ scan_embedded <- function(
     )
   }
 
-  engine <- Sys.which(tool)
-
-  if (!nzchar(engine)) {
-    stop(
-      "`", tool, "` was not found on the system PATH.",
-      call. = FALSE
-    )
-  }
-
   if (!is.null(extensions)) {
     extensions <- tolower(sub("^\\.", "", extensions))
     files <- files[
@@ -77,6 +68,15 @@ scan_embedded <- function(
       field = character(),
       value = character()
     ))
+  }
+
+  engine <- Sys.which(tool)
+
+  if (!nzchar(engine)) {
+    stop(
+      "`", tool, "` was not found on the system PATH.",
+      call. = FALSE
+    )
   }
 
   activity_id <- paste0(

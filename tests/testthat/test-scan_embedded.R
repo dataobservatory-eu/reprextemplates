@@ -59,3 +59,24 @@ test_that("scan_embedded handles empty input", {
   expect_named(result, c("file", "extension", "field", "value"))
   expect_equal(nrow(result), 0L)
 })
+
+test_that("scan_embedded handles empty input without ExifTool", {
+  result <- scan_embedded(character(), progress = FALSE)
+
+  # Empty input returns an empty embedded snapshot.
+  expect_named(result, c("file", "extension", "field", "value"))
+  expect_equal(nrow(result), 0L)
+})
+
+test_that("scan_embedded handles empty filtered input without ExifTool", {
+  files <- c("photo.jpg", "image.png")
+  result <- scan_embedded(
+    files,
+    extensions = "tiff",
+    progress = FALSE
+  )
+
+  # An empty filtered selection does not require ExifTool.
+  expect_named(result, c("file", "extension", "field", "value"))
+  expect_equal(nrow(result), 0L)
+})
