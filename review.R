@@ -22,6 +22,6 @@ concat_ordered_text_files(
 )
 
 
-create_review_bundles(root_dir = "D:/_markdown")
+create_review_bundles(root_dir = "D:/_eviota")
 
 dir(here::here("D:/_markdown", "GraphNotes"))
