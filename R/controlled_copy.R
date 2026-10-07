@@ -23,14 +23,14 @@
 #' @importFrom fscontext snapshot_storage
 #' @export
 controlled_copy <- function(
-    source_root,
-    destination_root,
-    source_snapshot_root,
-    destination_snapshot_root,
-    source_storage_id,
-    destination_storage_id,
-    person_id) {
-
+  source_root,
+  destination_root,
+  source_snapshot_root,
+  destination_snapshot_root,
+  source_storage_id,
+  destination_storage_id,
+  person_id
+) {
   operation_start_time <- Sys.time()
 
   source_root <- fs::path(source_root)
@@ -203,7 +203,6 @@ controlled_copy <- function(
   )
 
   add_comparison_attributes <- function(x) {
-
     attr(x, "snapshot") <- c(snapshot_1, snapshot_2)
 
     attr(x, "storage_id") <- c(
@@ -247,7 +246,6 @@ controlled_copy <- function(
   discrepancy_paths <- character()
 
   if (nrow(discrepancies) > 0) {
-
     attr(discrepancies, "discrepancy_file") <- discrepancy_file_name
 
     discrepancy_paths <- c(

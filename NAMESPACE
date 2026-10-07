@@ -9,16 +9,20 @@ export(controlled_copy)
 export(create_palette)
 export(create_review_bundles)
 export(create_shades)
+export(enrich_snapshot)
+export(find_embedded_fields)
 export(getdata)
 export(group_european_countries)
 export(media)
 export(media_table)
+export(observe_embedded)
 export(pad_numbers)
 export(palette_eu_countries)
 export(palette_europe_countries)
 export(rename_dir_files)
 export(rename_ppt_slides)
 export(reprex_palette)
+export(scan_embedded)
 importFrom(assertthat,assert_that)
 importFrom(base64enc,base64encode)
 importFrom(dplyr,
@@ -33,12 +37,17 @@ importFrom(fs,
   dir_create,
   dir_exists,
   path,
+  path_ext,
   path_real
 )
-importFrom(fscontext,snapshot_storage)
+importFrom(fscontext,
+  scan_storage,
+  snapshot_storage
+)
 importFrom(grDevices,colorRampPalette)
 importFrom(here,here)
 importFrom(htmltools,htmlEscape)
+importFrom(jsonlite,fromJSON)
 importFrom(kableExtra,
   column_spec,
   kable_styling
@@ -49,4 +58,11 @@ importFrom(knitr,
   kable
 )
 importFrom(stringr,str_trim)
-importFrom(tibble,tribble)
+importFrom(tibble,
+  tibble,
+  tribble
+)
+importFrom(utils,
+  setTxtProgressBar,
+  txtProgressBar
+)

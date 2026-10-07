@@ -120,12 +120,11 @@ media <- function(src, width = NULL, alt = "") {
 #'
 #' @export
 media_table <- function(
-    x,
-    widths = NULL,
-    image_width = "100%",
-    valign = "middle"
+  x,
+  widths = NULL,
+  image_width = "100%",
+  valign = "middle"
 ) {
-
   x <- as.matrix(x)
 
   nr <- nrow(x)
@@ -148,34 +147,29 @@ media_table <- function(
   # ==========================================================
 
   if (knitr::is_html_output()) {
-
     cells <- matrix("", nrow = nr, ncol = nc)
 
     for (i in seq_len(nr)) {
       for (j in seq_len(nc)) {
-
         z <- x[[i, j]]
 
         if (inherits(z, "media_cell")) {
-
           w <- z$width %||% image_width
 
           cells[i, j] <- sprintf(
             paste0(
               '<img src="%s" alt="%s" ',
               'style="width:%s;',
-              'height:auto;',
-              'display:block;',
-              'margin-left:auto;',
+              "height:auto;",
+              "display:block;",
+              "margin-left:auto;",
               'margin-right:auto;">'
             ),
             z$src,
             z$alt,
             w
           )
-
         } else {
-
           cells[i, j] <- sprintf(
             '<span data-qmd="%s"></span>',
             htmltools::htmlEscape(
@@ -204,7 +198,6 @@ media_table <- function(
     )
 
     for (j in seq_len(nc)) {
-
       out <- kableExtra::column_spec(
         out,
         j,
@@ -229,20 +222,16 @@ media_table <- function(
   # ==========================================================
 
   if (knitr::is_latex_output()) {
-
     cells <- matrix("", nrow = nr, ncol = nc)
 
     for (i in seq_len(nr)) {
       for (j in seq_len(nc)) {
-
         z <- x[[i, j]]
 
         if (inherits(z, "media_cell")) {
-
           w <- z$width %||% image_width
 
           if (grepl("%$", w)) {
-
             p <- as.numeric(
               sub("%$", "", w)
             ) / 100
@@ -251,9 +240,7 @@ media_table <- function(
               p,
               "\\linewidth"
             )
-
           } else {
-
             latex_image_width <- w
           }
 
@@ -267,9 +254,7 @@ media_table <- function(
             latex_image_width,
             z$src
           )
-
         } else {
-
           cells[i, j] <- sprintf(
             "\\QuartoMarkdownBase64{%s}",
             qmd_base64(
@@ -295,7 +280,6 @@ media_table <- function(
     )
 
     for (j in seq_len(nc)) {
-
       out <- kableExtra::column_spec(
         out,
         j,
@@ -321,11 +305,9 @@ media_table <- function(
 
   for (i in seq_len(nr)) {
     for (j in seq_len(nc)) {
-
       z <- x[[i, j]]
 
       if (inherits(z, "media_cell")) {
-
         w <- z$width %||% image_width
 
         cells[i, j] <- sprintf(
@@ -334,7 +316,6 @@ media_table <- function(
           z$src,
           w
         )
-
       } else {
         cells[i, j] <- as.character(z)
       }

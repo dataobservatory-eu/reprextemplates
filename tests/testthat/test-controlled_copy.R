@@ -1,5 +1,4 @@
 test_that("controlled_copy recursively copies and verifies files", {
-
   skip_on_os(c("mac", "linux", "solaris"))
   skip_if(Sys.which("robocopy") == "")
 
