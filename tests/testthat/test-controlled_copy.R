@@ -2,10 +2,13 @@ test_that("controlled_copy recursively copies and verifies files", {
   skip_on_os(c("mac", "linux", "solaris"))
   skip_if(Sys.which("robocopy") == "")
 
-  # Use a short path to avoid Windows PATH_MAX during R CMD check.
-  tmp <- tempfile("cc-")
-  dir.create(tmp)
-  on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
+  # Use a short root path to avoid Windows PATH_MAX during R CMD check.
+  tmp <- fs::path(
+    Sys.getenv("SystemDrive", unset = "C:"),
+    paste0("rt-", Sys.getpid())
+  )
+  fs::dir_create(tmp)
+  on.exit(unlink(tmp, recursive = TRUE, force = TRUE), add = TRUE)
 
   source <- fs::path(tmp, "src")
   destination <- fs::path(tmp, "dst")
@@ -15,6 +18,7 @@ test_that("controlled_copy recursively copies and verifies files", {
   fs::dir_create(c(
     source, destination, source_snapshots, destination_snapshots
   ))
+
   fs::dir_create(fs::path(source, "documents", "nested"), recurse = TRUE)
   fs::dir_create(fs::path(source, ".hidden"))
   writeLines("first document", fs::path(source, "first.txt"))
