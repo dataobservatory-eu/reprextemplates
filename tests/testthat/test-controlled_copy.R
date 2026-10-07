@@ -3,8 +3,10 @@ test_that("controlled_copy recursively copies and verifies files", {
   skip_if(Sys.which("robocopy") == "")
 
   # Use a short path to avoid Windows PATH_MAX during R CMD check.
-  tmp <- fs::path_temp(paste0("cc-", Sys.getpid()))
-  withr::defer(fs::dir_delete(tmp))
+  tmp <- tempfile("cc-")
+  dir.create(tmp)
+  on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
+
   source <- fs::path(tmp, "src")
   destination <- fs::path(tmp, "dst")
   source_snapshots <- fs::path(tmp, "ss")

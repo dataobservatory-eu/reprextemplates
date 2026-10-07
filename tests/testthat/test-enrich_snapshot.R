@@ -4,11 +4,13 @@ embedded_file <- testthat::test_path("fixtures", "embedded_snapshot.rds")
 snapshot_fixtures <- fscontext::scan_storage(root = fixture_dir)
 embedded_fixtures <- readRDS(embedded_file)
 
-# Rebase persisted observations to the current filesystem snapshot.
-paths <- setNames(
-  snapshot_fixtures$full_path,
+# Match persisted observations to the current filesystem snapshot.
+i <- match(
+  fs::path_file(embedded_fixtures$file),
   fs::path_file(snapshot_fixtures$full_path)
 )
+
+embedded_fixtures$file <- snapshot_fixtures$full_path[i]
 
 test_that("enrich_snapshot projects selected metadata", {
   fields <- c(
