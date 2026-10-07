@@ -2,37 +2,25 @@ test_that("controlled_copy recursively copies and verifies files", {
   skip_on_os(c("mac", "linux", "solaris"))
   skip_if(Sys.which("robocopy") == "")
 
-  tmp <- withr::local_tempdir()
+  # Use a short path to avoid Windows PATH_MAX during R CMD check.
+  tmp <- fs::path_temp(paste0("cc-", Sys.getpid()))
+  withr::defer(fs::dir_delete(tmp))
+  source <- fs::path(tmp, "src")
+  destination <- fs::path(tmp, "dst")
+  source_snapshots <- fs::path(tmp, "ss")
+  destination_snapshots <- fs::path(tmp, "ds")
 
-  source <- fs::path(tmp, "source")
-  destination <- fs::path(tmp, "destination")
-
-  source_snapshots <- fs::path(tmp, "source_snapshots")
-  destination_snapshots <- fs::path(tmp, "destination_snapshots")
-
-  fs::dir_create(source)
-  fs::dir_create(destination)
-  fs::dir_create(source_snapshots)
-  fs::dir_create(destination_snapshots)
-
-  # Include nested and hidden directories.
-  fs::dir_create(fs::path(source, "documents", "nested"))
+  fs::dir_create(c(
+    source, destination, source_snapshots, destination_snapshots
+  ))
+  fs::dir_create(fs::path(source, "documents", "nested"), recurse = TRUE)
   fs::dir_create(fs::path(source, ".hidden"))
-
-  writeLines(
-    "first document",
-    fs::path(source, "first.txt")
-  )
-
+  writeLines("first document", fs::path(source, "first.txt"))
   writeLines(
     "nested document",
     fs::path(source, "documents", "nested", "second.txt")
   )
-
-  writeLines(
-    "hidden document",
-    fs::path(source, ".hidden", "third.txt")
-  )
+  writeLines("hidden document", fs::path(source, ".hidden", "third.txt"))
 
   result <- controlled_copy(
     source_root = source,
@@ -44,32 +32,18 @@ test_that("controlled_copy recursively copies and verifies files", {
     person_id = "test-person"
   )
 
-  expect_true(
-    fs::file_exists(
-      fs::path(destination, "first.txt")
-    )
-  )
+  # Check recursive and hidden files.
+  expect_true(all(fs::file_exists(c(
+    fs::path(destination, "first.txt"),
+    fs::path(destination, "documents", "nested", "second.txt"),
+    fs::path(destination, ".hidden", "third.txt")
+  ))))
 
-  expect_true(
-    fs::file_exists(
-      fs::path(destination, "documents", "nested", "second.txt")
-    )
-  )
-
-  expect_true(
-    fs::file_exists(
-      fs::path(destination, ".hidden", "third.txt")
-    )
-  )
-
+  # Check snapshots, concordance and copy verification.
   expect_true(fs::file_exists(result$source_snapshot))
   expect_true(fs::file_exists(result$destination_snapshot))
-
   expect_length(result$concordance, 2)
   expect_true(all(fs::file_exists(result$concordance)))
-
-  # A clean destination should produce no discrepancy artefact.
   expect_length(result$discrepancies, 0)
-
   expect_lt(result$copy_exit_status, 8)
 })
