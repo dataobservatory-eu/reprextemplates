@@ -1,3 +1,10 @@
+# reprextemplates 0.2.13
+* Add `contact_thunderbird_messages()`, `parse_thunderbird_email()` and 
+  `decode_mime_header()`.
+
+# reprextemplates 0.2.12
+* Add extensions to fscontext to work with exiftools.
+
 # reprextemplates 0.2.1
 * Add media and text layout for Quarto with `media_table()` supported by the 
   vignette *Media Tables*.
